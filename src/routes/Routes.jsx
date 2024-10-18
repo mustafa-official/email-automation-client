@@ -3,6 +3,7 @@ import ErrorPage from "../pages/ErrorPage";
 import Home from "../pages/Home";
 import Root from "../layout/Root";
 import Smtp from "../pages/Smtp";
+import Customer from "../pages/Customer";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
       {
         path: "/smtp",
         element: <Smtp />,
+      },
+      {
+        path: "/customer",
+        element: <Customer />,
       },
     ],
   },

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 
@@ -9,7 +9,7 @@ const Smtp = () => {
   const [encryption, setEncryption] = useState("");
   const [selectedEmail, setSelectedEmail] = useState({});
   const [emailData, setEmailData] = useState({
-    to: "mostofaa755@gmail.com",
+    to: "",
     subject: "Hiring Process",
     message: "Dear Candidate, Congratulations you are shortlisted!",
   });
@@ -25,6 +25,21 @@ const Smtp = () => {
       return data;
     },
   });
+
+  const { data: customers = [] } = useQuery({
+    queryKey: ["customers-email"],
+    queryFn: async () => {
+      const { data } = await axios.get("http://localhost:5000/customers");
+      return data;
+    },
+  });
+
+  useEffect(() => {
+    if (customers?.length > 0) {
+      const emails = customers?.map((customer) => customer?.email).join(", ");
+      setEmailData((prev) => ({ ...prev, to: emails }));
+    }
+  }, [customers]);
   const handleEncryption = (e) => {
     setEncryption(e.target.value);
   };
@@ -143,7 +158,7 @@ const Smtp = () => {
     <section className="mt-12">
       <button
         onClick={() => document.getElementById("modal-two").showModal()}
-        className="px-6 mx-8 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
+        className="px-4 mx-8 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
       >
         Create SMTP
       </button>
