@@ -4,6 +4,8 @@ import Home from "../pages/Home";
 import Root from "../layout/Root";
 import Smtp from "../pages/Smtp";
 import Customer from "../pages/Customer";
+import Campaign from "../pages/Campaign";
+import AddCampaign from "../pages/AddCampaign";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +24,14 @@ const router = createBrowserRouter([
       {
         path: "/customer",
         element: <Customer />,
+      },
+      {
+        path: "/campaign",
+        element: <Campaign />,
+      },
+      {
+        path: "/add-campaign",
+        element: <AddCampaign />,
       },
     ],
   },
