@@ -64,6 +64,7 @@ const Smtp = () => {
   const openUpdateModal = async (id) => {
     const { data } = await axios.get(`http://localhost:5000/smtp-email/${id}`);
     setSelectedEmail(data);
+    setEncryption(data.encryption || "");
   };
 
   const handleUpdate = async (e) => {
@@ -329,7 +330,7 @@ const Smtp = () => {
                                 />
                                 <select
                                   onChange={handleEncryption}
-                                  defaultValue={selectedEmail?.encryption}
+                                  value={encryption || ""}
                                   className="select select-bordered w-full"
                                 >
                                   <option value="">Select Encryption</option>

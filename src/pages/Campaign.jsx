@@ -1,9 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 const Campaign = () => {
+  const [loading, setLoading] = useState(false);
   const {
     data: allCampaign = [],
     isLoading,
@@ -18,15 +20,22 @@ const Campaign = () => {
 
   const handleToggle = async (id) => {
     try {
-      const { data } = await axios.patch(
-        `http://localhost:5000/update-status/${id}`
+      setLoading(true);
+      const response = await axios.post(
+        `http://localhost:5000/send-email/${id}`
       );
-      if (data.modifiedCount === 1) {
+      if (response.data.success) {
+        toast.success("Email sent successfully!");
+        setLoading(false);
         refetch();
-        toast.success("Email sent successfully");
+      } else {
+        toast.error(response.data.message);
+        setLoading(false);
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error sending email:", error);
+      toast.error("Failed to send email.");
+      setLoading(false);
     }
   };
 
@@ -104,13 +113,17 @@ const Campaign = () => {
                       </td>
                       <td className="px-4 py-4 text-sm text-gray-800  whitespace-nowrap">
                         <input
+                        disabled={campaign.status === "active"}
                           type="checkbox"
-                          className={`${campaign.status === "active" && "cursor-not-allowed"} toggle`}
+                          className={`${
+                            campaign.status === "active" && "cursor-not-allowed"
+                          } toggle`}
                           checked={campaign.status === "active"}
-                          onChange={() =>
-                            handleToggle(campaign._id, campaign.status)
-                          }
+                          onChange={() => handleToggle(campaign._id, campaign)}
                         />
+                        {loading && (
+                          <span className="ml-2 loading loading-dots loading-xs"></span>
+                        )}
                       </td>
                     </tr>
                   ))}
