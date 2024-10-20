@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQueries, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -17,6 +17,27 @@ const Customer = () => {
       return data;
     },
   });
+
+  // Fetch replies for each customer in parallel
+  const repliesQueries = useQueries({
+    queries: customers.map((customer) => ({
+      queryKey: ["reply", customer.email],
+      queryFn: async () => {
+        const { data } = await axios.get(
+          `http://localhost:5000/replies/${customer.email}`
+        );
+        return data; // Return the entire reply object, including null if no reply found
+      },
+      enabled: !!customers.length,
+    })),
+  });
+
+  // Extract replies from queries
+  const replies = repliesQueries.reduce((acc, { data }, index) => {
+    const email = customers[index]?.email;
+    acc[email] = data ?? { body: "No reply", receivedAt: null }; // Default to an object with a body and receivedAt
+    return acc;
+  }, {});
 
   const handleCreateCustomer = async (e) => {
     e.preventDefault();
@@ -129,17 +150,18 @@ const Customer = () => {
                         <span>Email</span>
                       </div>
                     </th>
+
                     <th
                       scope="col"
                       className="px-4 py-3.5 text-sm font-bold text-left rtl:text-right text-white"
                     >
-                      <span>Response</span>
+                      <span>Reply Message</span>
                     </th>
                     <th
                       scope="col"
                       className="px-4 py-3.5 text-sm font-bold text-left rtl:text-right text-white"
                     >
-                      <span>Message</span>
+                      <span>Received At</span>
                     </th>
                   </tr>
                 </thead>
@@ -152,11 +174,17 @@ const Customer = () => {
                       <td className="px-4 py-4 text-sm text-gray-800  whitespace-nowrap">
                         {customer.email}
                       </td>
-                      <td className="px-4 py-4 text-sm text-gray-800  whitespace-nowrap">
-                        Yes
+                      <td className="px-4 py-4 text-sm text-gray-800 whitespace-nowrap">
+                        {replies[customer.email]?.body || "No reply"}{" "}
+                        {/* Show reply body */}
                       </td>
-                      <td className="px-4 py-4 text-sm text-gray-800  whitespace-nowrap">
-                        No
+                      <td className="px-4 py-4 text-sm text-gray-800 whitespace-nowrap">
+                        {replies[customer.email]?.receivedAt
+                          ? new Date(
+                              replies[customer.email].receivedAt
+                            ).toLocaleString()
+                          : "N/A"}{" "}
+       
                       </td>
                     </tr>
                   ))}

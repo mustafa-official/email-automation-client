@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 const Campaign = () => {
-  const [loading, setLoading] = useState(false);
+  const [loadingMap, setLoadingMap] = useState({});
   const {
     data: allCampaign = [],
     isLoading,
@@ -20,22 +20,22 @@ const Campaign = () => {
 
   const handleToggle = async (id) => {
     try {
-      setLoading(true);
+      setLoadingMap((prev) => ({ ...prev, [id]: true }));
       const response = await axios.post(
         `http://localhost:5000/send-email/${id}`
       );
       if (response.data.success) {
         toast.success("Email sent successfully!");
-        setLoading(false);
+        setLoadingMap((prev) => ({ ...prev, [id]: false }));
         refetch();
       } else {
         toast.error(response.data.message);
-        setLoading(false);
+        setLoadingMap((prev) => ({ ...prev, [id]: false }));
       }
     } catch (error) {
       console.error("Error sending email:", error);
       toast.error("Failed to send email.");
-      setLoading(false);
+      setLoadingMap((prev) => ({ ...prev, [id]: false }));
     }
   };
 
@@ -113,15 +113,15 @@ const Campaign = () => {
                       </td>
                       <td className="px-4 py-4 text-sm text-gray-800  whitespace-nowrap">
                         <input
-                        disabled={campaign.status === "active"}
+                          disabled={campaign.status === "active"}
                           type="checkbox"
                           className={`${
                             campaign.status === "active" && "cursor-not-allowed"
-                          } toggle`}
+                          } toggle mt-1`}
                           checked={campaign.status === "active"}
                           onChange={() => handleToggle(campaign._id, campaign)}
                         />
-                        {loading && (
+                        {loadingMap[campaign._id] && (
                           <span className="ml-2 loading loading-dots loading-xs"></span>
                         )}
                       </td>
