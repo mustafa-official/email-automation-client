@@ -13,7 +13,9 @@ const AddCampaign = () => {
   const { data: smtpEmails = [] } = useQuery({
     queryKey: ["smtp-email"],
     queryFn: async () => {
-      const { data } = await axios.get("http://localhost:5000/smtp-email");
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_API_URL}/smtp-email`
+      );
       return data;
     },
   });
@@ -21,7 +23,9 @@ const AddCampaign = () => {
   const { data: customers = [] } = useQuery({
     queryKey: ["customers-email"],
     queryFn: async () => {
-      const { data } = await axios.get("http://localhost:5000/customers");
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_API_URL}/customers`
+      );
       return data;
     },
   });
@@ -49,7 +53,7 @@ const AddCampaign = () => {
     try {
       setLoading(true);
       const { data } = await axios.post(
-        "http://localhost:5000/create-campaign",
+        `${import.meta.env.VITE_API_URL}/create-campaign`,
         campaignInfo
       );
       if (data.insertedId) {

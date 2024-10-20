@@ -1,11 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "../pages/ErrorPage";
-import Home from "../pages/Home";
 import Root from "../layout/Root";
 import Smtp from "../pages/Smtp";
 import Customer from "../pages/Customer";
 import Campaign from "../pages/Campaign";
 import AddCampaign from "../pages/AddCampaign";
+import Register from "../pages/Register";
+import Login from "../pages/Login";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -15,23 +17,43 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: <Login />,
       },
       {
         path: "/smtp",
-        element: <Smtp />,
+        element: (
+          <PrivateRoute>
+            <Smtp />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/customer",
-        element: <Customer />,
+        element: (
+          <PrivateRoute>
+            <Customer />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/campaign",
-        element: <Campaign />,
+        element: (
+          <PrivateRoute>
+            <Campaign />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/add-campaign",
-        element: <AddCampaign />,
+        element: (
+          <PrivateRoute>
+            <AddCampaign />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/register",
+        element: <Register />,
       },
     ],
   },

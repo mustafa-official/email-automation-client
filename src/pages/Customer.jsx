@@ -13,7 +13,9 @@ const Customer = () => {
   } = useQuery({
     queryKey: ["allCustomer"],
     queryFn: async () => {
-      const { data } = await axios.get("http://localhost:5000/customers");
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_API_URL}/customers`
+      );
       return data;
     },
   });
@@ -24,7 +26,7 @@ const Customer = () => {
       queryKey: ["reply", customer.email],
       queryFn: async () => {
         const { data } = await axios.get(
-          `http://localhost:5000/replies/${customer.email}`
+          `${import.meta.env.VITE_API_URL}/replies/${customer.email}`
         );
         return data; // Return the entire reply object, including null if no reply found
       },
@@ -47,7 +49,7 @@ const Customer = () => {
     try {
       setLoading(true);
       const { data } = await axios.post(
-        "http://localhost:5000/create-customer",
+        `${import.meta.env.VITE_API_URL}/create-customer`,
         {
           name,
           email,
@@ -184,7 +186,6 @@ const Customer = () => {
                               replies[customer.email].receivedAt
                             ).toLocaleString()
                           : "N/A"}{" "}
-       
                       </td>
                     </tr>
                   ))}

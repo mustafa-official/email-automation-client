@@ -16,7 +16,9 @@ const Smtp = () => {
   } = useQuery({
     queryKey: ["smtp-email"],
     queryFn: async () => {
-      const { data } = await axios.get("http://localhost:5000/smtp-email");
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_API_URL}/smtp-email`
+      );
       return data;
     },
   });
@@ -42,7 +44,7 @@ const Smtp = () => {
     try {
       setLoading(true);
       const { data } = await axios.post(
-        "http://localhost:5000/create-smtp",
+        `${import.meta.env.VITE_API_URL}/create-smtp`,
         smtpInfo
       );
 
@@ -62,7 +64,9 @@ const Smtp = () => {
   };
 
   const openUpdateModal = async (id) => {
-    const { data } = await axios.get(`http://localhost:5000/smtp-email/${id}`);
+    const { data } = await axios.get(
+      `${import.meta.env.VITE_API_URL}/smtp-email/${id}`
+    );
     setSelectedEmail(data);
     setEncryption(data.encryption || "");
   };
@@ -86,7 +90,7 @@ const Smtp = () => {
     try {
       setLoading(true);
       const { data } = await axios.patch(
-        `http://localhost:5000/smtp-update/${selectedEmail?._id}`,
+        `${import.meta.env.VITE_API_URL}/smtp-update/${selectedEmail?._id}`,
         smtpUpdateInfo
       );
       if (data.modifiedCount === 1) {
@@ -114,7 +118,7 @@ const Smtp = () => {
       if (result.isConfirmed) {
         try {
           const { data } = await axios.delete(
-            `http://localhost:5000/smtp-delete/${id}`
+            `${import.meta.env.VITE_API_URL}/smtp-delete/${id}`
           );
           if (data.deletedCount === 1) {
             refetch();

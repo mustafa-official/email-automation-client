@@ -13,7 +13,9 @@ const Campaign = () => {
   } = useQuery({
     queryKey: ["allCampaign"],
     queryFn: async () => {
-      const { data } = await axios.get("http://localhost:5000/all-campaign");
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_API_URL}/all-campaign`
+      );
       return data;
     },
   });
@@ -22,7 +24,7 @@ const Campaign = () => {
     try {
       setLoadingMap((prev) => ({ ...prev, [id]: true }));
       const response = await axios.post(
-        `http://localhost:5000/send-email/${id}`
+        `${import.meta.env.VITE_API_URL}/send-email/${id}`
       );
       if (response.data.success) {
         toast.success("Email sent successfully!");
