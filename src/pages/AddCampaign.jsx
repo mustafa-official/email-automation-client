@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { ImSpinner9 } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
 
 const AddCampaign = () => {
@@ -67,7 +68,7 @@ const AddCampaign = () => {
     }
   };
   return (
-    <section className="mx-8 mt-12">
+    <section className="mx-8 min-h-[calc(100vh-66px)] flex justify-center items-center">
       <form
         onSubmit={handleAddCampaign}
         className="flex flex-col justify-center items-center gap-3"
@@ -124,10 +125,14 @@ const AddCampaign = () => {
         <button
           disabled={loading}
           type="submit"
-          className="px-2 disabled:cursor-not-allowed max-w-xs h-12 flex justify-center items-center mt-1 w-full font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-black rounded-lg hover:bg-neutral-900 focus:ring-opacity-80"
+          className="px-2 disabled:cursor-not-allowed max-w-xs h-11 flex justify-center items-center mt-1 w-full font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#1f1d1d] rounded-lg hover:bg-neutral-700 focus:ring-opacity-80"
         >
           {loading ? (
-            <span className="loading loading-spinner text-white"></span>
+            <ImSpinner9
+              size={16}
+              color="white"
+              className="animate-spin m-auto"
+            />
           ) : (
             "Add Campaign"
           )}

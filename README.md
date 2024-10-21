@@ -1,8 +1,43 @@
-# React + Vite
+# Pathao Mail
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Live Link: https://pathao-mail.web.app <br>
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Technologies
+
+- React.js
+- Express.js
+- Node.js
+- MongoDB
+- Tailwind CSS
+- Firebase
+- IMAP
+- Cron Job
+- Nodemailer
+
+### Run Locally
+
+1. **Clone the Repository**:
+   ```sh
+   git clone https://github.com/your-username/your-repository.git
+   ```
+2. **Navigate to the Project Directory**:
+   ```sh
+   cd your-repository
+   ```
+3. **Install Dependencies**:
+   ```sh
+   npm install
+   ```
+4. **Run the Development Server Locally**:
+   ```sh
+   npm run dev
+   ```
+5. **Build the Project for Production**:
+   ```sh
+   npm run build
+   ```
+6. **Preview the Production Build**:
+   ```sh
+   npm run preview
+   ```

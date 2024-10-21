@@ -1,7 +1,9 @@
 import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 import toast from "react-hot-toast";
+import { FiUserPlus } from "react-icons/fi";
+import { PiTelegramLogo } from "react-icons/pi";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,17 +25,19 @@ const NavBar = () => {
     }
   };
   return (
-    <nav className="relative bg-white shadow  dark:bg-gray-800">
-      <div className="container px-6 py-4 mx-auto md:flex md:justify-between md:items-center">
+    <nav className="bg-transparent sticky flex items-center shadow-md h-[66px] backdrop-blur-[6px] top-0 left-0 right-0  z-50">
+      <div className="container px-6 mx-auto md:flex md:justify-between md:items-center">
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold">Pathao Mail</h2>
-
+          <h2 className="text-xl flex text-[#201e1e] items-center font-bold">
+            <span className="font-medium  text-[19px]">pathao</span>MaiL
+            <PiTelegramLogo className="rotate-[5deg] text-black" size={18} />
+          </h2>
           {/* Mobile menu button */}
           <div className="flex lg:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
               type="button"
-              className="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400"
+              className="text-gray-500  hover:text-gray-600  focus:outline-none focus:text-gray-600 "
               aria-label="toggle menu"
             >
               {!isOpen ? (
@@ -73,21 +77,64 @@ const NavBar = () => {
 
         {/* Mobile Menu */}
         <div
-          className={`absolute inset-x-0 z-20 w-full px-4 py-4 transition-all duration-300 ease-in-out bg-white dark:bg-gray-800 md:mt-0 md:p-0 md:top-0 md:relative md:bg-transparent md:w-auto md:opacity-100 md:translate-x-0 md:flex md:items-center ${
+          className={`absolute inset-x-0 z-20 w-full px-4 py-4 transition-all duration-300 ease-in-out bg-white  md:mt-0 md:p-0 md:top-0 md:relative md:bg-transparent md:w-auto md:opacity-100 md:translate-x-0 md:flex md:items-center ${
             isOpen ? "translate-x-0 opacity-100" : "opacity-0 -translate-x-full"
           }`}
         >
           <div className="flex flex-col items-center md:flex-row gap-5">
+            {!user && (
+              <Link to="/register">
+                <h2 className="ml-2  relative inline-block">
+                  <button className="px-[16px] py-[8px] rounded-full  border w-max bg-[#1f1d1d] hover:bg-transparent text-white hover:border-[#1f1d1d] hover:text-[#1f1d1d] text-[16px] transform transition duration-200">
+                    <h4 className="flex items-center font-medium gap-2">
+                      <span>Register</span>
+                      <FiUserPlus size={18} />
+                    </h4>
+                  </button>
+                </h2>
+              </Link>
+            )}
             {user && (
               <>
-                <p className="text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">
-                  <Link to="/smtp">SMTP</Link>
+                <p className="text-neutral-900  duration-300 transform">
+                  <NavLink
+                    to="/statistics"
+                    className={({ isActive }) =>
+                      isActive ? "  font-extrabold text-black" : ""
+                    }
+                  >
+                    Statistics
+                  </NavLink>
                 </p>
-                <p className="text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">
-                  <Link to="/customer">Customers</Link>
+                <p className="text-neutral-900  duration-300 transform">
+                  <NavLink
+                    to="/smtp"
+                    className={({ isActive }) =>
+                      isActive ? "  font-extrabold text-black" : ""
+                    }
+                  >
+                    SMTP
+                  </NavLink>
                 </p>
-                <p className="text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">
-                  <Link to="/campaign">Campaign</Link>
+                <p className="text-neutral-900 duration-300 transform">
+                  <NavLink
+                    to="/customer"
+                    className={({ isActive }) =>
+                      isActive ? "  font-extrabold text-black" : ""
+                    }
+                  >
+                    Customers
+                  </NavLink>
+                </p>
+                <p className="text-neutral-900 duration-300 transform">
+                  <NavLink
+                    to="/campaign"
+                    className={({ isActive }) =>
+                      isActive ? "  font-extrabold text-black" : ""
+                    }
+                  >
+                    Campaign
+                  </NavLink>
                 </p>
               </>
             )}

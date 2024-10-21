@@ -2,6 +2,7 @@ import { useQueries, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { ImSpinner9 } from "react-icons/im";
 
 const Customer = () => {
   const [loading, setLoading] = useState(false);
@@ -71,17 +72,32 @@ const Customer = () => {
   if (isLoading)
     return (
       <div className="h-[80vh] flex justify-center items-center">
-        <span className="loading loading-spinner loading-md"></span>
+        <ImSpinner9
+          size={22}
+          color="[#1f1d1d]"
+          className="animate-spin m-auto"
+        />
       </div>
     );
   return (
-    <section className="mt-12">
-      <button
-        onClick={() => document.getElementById("modal").showModal()}
-        className="px-4 mx-8 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
-      >
-        Create Customer
-      </button>
+    <section className="mt-12 min-h-[calc(100vh-114px)]">
+      <div className="flex items-center justify-between mx-8">
+        <h2 className="text-lg flex gap-2 flex-wrap items-center font-medium text-gray-800 ">
+          Total
+          <span className="px-3 py-1 text-xs text-white  bg-[#1f1d1d] rounded-full ">
+            {customers?.length} Customers
+          </span>
+        </h2>
+        <div>
+          <button
+            onClick={() => document.getElementById("modal").showModal()}
+            className="px-4 mx-8 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#1f1d1d] rounded-lg hover:bg-[#1f1d1d]"
+          >
+            Create Customer
+          </button>
+        </div>
+      </div>
+
       <dialog id="modal" className="modal">
         <div className="modal-box max-w-sm">
           <form method="dialog">
@@ -113,10 +129,14 @@ const Customer = () => {
               <button
                 disabled={loading}
                 type="submit"
-                className="px-2 disabled:cursor-not-allowed h-12 flex justify-center items-center mt-6 w-full font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-black rounded-lg hover:bg-neutral-900 focus:ring-opacity-80"
+                className="px-2 disabled:cursor-not-allowed h-11 flex justify-center items-center mt-6 w-full font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#1f1d1d] rounded-lg hover:bg-neutral-900 focus:ring-opacity-80"
               >
                 {loading ? (
-                  <span className="loading loading-spinner text-white"></span>
+                  <ImSpinner9
+                    size={16}
+                    color="white"
+                    className="animate-spin m-auto"
+                  />
                 ) : (
                   "Create"
                 )}
@@ -134,11 +154,11 @@ const Customer = () => {
           <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
             <div className="overflow-hidden border border-gray-200  md:rounded-lg">
               <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-[#4d7fecea]">
+                <thead className="bg-[#1f1d1d] text-[15px]">
                   <tr>
                     <th
                       scope="col"
-                      className="py-3.5 px-4 text-sm font-bold text-left rtl:text-right text-white"
+                      className="py-3.5 px-4  text-left rtl:text-right text-white"
                     >
                       <div className="flex items-center gap-x-3">
                         <span>Name</span>
@@ -146,7 +166,7 @@ const Customer = () => {
                     </th>
                     <th
                       scope="col"
-                      className="py-3.5 px-4 text-sm font-bold text-left rtl:text-right text-white"
+                      className="py-3.5 px-4  text-left rtl:text-right text-white"
                     >
                       <div className="flex items-center gap-x-3">
                         <span>Email</span>
@@ -155,13 +175,13 @@ const Customer = () => {
 
                     <th
                       scope="col"
-                      className="px-4 py-3.5 text-sm font-bold text-left rtl:text-right text-white"
+                      className="px-4 py-3.5  text-left rtl:text-right text-white"
                     >
                       <span>Reply Message</span>
                     </th>
                     <th
                       scope="col"
-                      className="px-4 py-3.5 text-sm font-bold text-left rtl:text-right text-white"
+                      className="px-4 py-3.5  text-left rtl:text-right text-white"
                     >
                       <span>Received At</span>
                     </th>
@@ -169,18 +189,18 @@ const Customer = () => {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200 ">
                   {customers?.map((customer) => (
-                    <tr key={customer._id}>
-                      <td className="px-4 py-4 text-sm text-gray-800  whitespace-nowrap">
+                    <tr key={customer._id} className="text-[15px]">
+                      <td className="px-4 py-4 text-gray-900  whitespace-nowrap">
                         {customer.name}
                       </td>
-                      <td className="px-4 py-4 text-sm text-gray-800  whitespace-nowrap">
+                      <td className="px-4 py-4 text-gray-900  whitespace-nowrap">
                         {customer.email}
                       </td>
-                      <td className="px-4 py-4 text-sm text-gray-800 whitespace-nowrap">
+                      <td className="px-4 py-4 text-gray-900 whitespace-nowrap">
                         {replies[customer.email]?.body || "No reply"}{" "}
                         {/* Show reply body */}
                       </td>
-                      <td className="px-4 py-4 text-sm text-gray-800 whitespace-nowrap">
+                      <td className="px-4 py-4 text-gray-900 whitespace-nowrap">
                         {replies[customer.email]?.receivedAt
                           ? new Date(
                               replies[customer.email].receivedAt

@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { ImSpinner9 } from "react-icons/im";
 import { Link } from "react-router-dom";
 
 const Campaign = () => {
@@ -44,27 +45,41 @@ const Campaign = () => {
   if (isLoading)
     return (
       <div className="h-[80vh] flex justify-center items-center">
-        <span className="loading loading-spinner loading-md"></span>
+        <ImSpinner9
+          size={22}
+          color="[#1f1d1d]"
+          className="animate-spin m-auto"
+        />
       </div>
     );
   return (
-    <section className="mt-12">
-      <Link to="/add-campaign">
-        <button className="px-4 mx-8 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
-          Add Campaign
-        </button>
-      </Link>
+    <section className="mt-12 min-h-[calc(100vh-114px)]">
+      <div className="flex items-center justify-between mx-8">
+        <h2 className="text-lg flex gap-2 flex-wrap items-center font-medium text-gray-800 ">
+          Total
+          <span className="px-3 py-1 text-xs text-white  bg-[#1f1d1d] rounded-full ">
+            {allCampaign?.length} Campaigns
+          </span>
+        </h2>
+        <div>
+          <Link to="/add-campaign">
+            <button className="px-4 mx-8 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#1f1d1d] rounded-lg hover:bg-[#1f1d1d]">
+              Add Campaign
+            </button>
+          </Link>
+        </div>
+      </div>
 
       <div className="flex flex-col mt-6">
         <div className="-my-2 overflow-x-auto ">
           <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
             <div className="overflow-hidden border border-gray-200  md:rounded-lg">
               <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-[#4d7fecea]">
+                <thead className="bg-[#1f1d1d] text-[15px]">
                   <tr>
                     <th
                       scope="col"
-                      className="py-3.5 px-4 text-sm font-bold text-left rtl:text-right text-white"
+                      className="py-3.5 px-4 text-left rtl:text-right text-white"
                     >
                       <div className="flex items-center gap-x-3">
                         <span>From Name</span>
@@ -72,7 +87,7 @@ const Campaign = () => {
                     </th>
                     <th
                       scope="col"
-                      className="py-3.5 px-4 text-sm font-bold text-left rtl:text-right text-white"
+                      className="py-3.5 px-4 text-left rtl:text-right text-white"
                     >
                       <div className="flex items-center gap-x-3">
                         <span>SMTP</span>
@@ -80,19 +95,25 @@ const Campaign = () => {
                     </th>
                     <th
                       scope="col"
-                      className="px-4 py-3.5 text-sm font-bold text-left rtl:text-right text-white"
+                      className="px-4 py-3.5 text-left rtl:text-right text-white"
                     >
                       <span>Subject</span>
                     </th>
                     <th
                       scope="col"
-                      className="px-4 py-3.5 text-sm font-bold text-left rtl:text-right text-white"
+                      className="px-4 py-3.5 text-left rtl:text-right text-white"
+                    >
+                      <span>Message</span>
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-4 py-3.5 text-left rtl:text-right text-white"
                     >
                       <span>Customer Email</span>
                     </th>
                     <th
                       scope="col"
-                      className="px-4 py-3.5 text-sm font-bold text-left rtl:text-right text-white"
+                      className="px-4 py-3.5 text-left rtl:text-right text-white"
                     >
                       <span>Status</span>
                     </th>
@@ -100,20 +121,23 @@ const Campaign = () => {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200 ">
                   {allCampaign?.map((campaign) => (
-                    <tr key={campaign._id}>
-                      <td className="px-4 py-4 text-sm text-gray-800  whitespace-nowrap">
+                    <tr key={campaign._id} className="text-[15px]">
+                      <td className="px-4 py-4 text-gray-900  whitespace-nowrap">
                         {campaign.fromName}
                       </td>
-                      <td className="px-4 py-4 text-sm text-gray-800  whitespace-nowrap">
+                      <td className="px-4 py-4 text-gray-900  whitespace-nowrap">
                         {campaign.smtpEmail}
                       </td>
-                      <td className="px-4 py-4 text-sm text-gray-800  whitespace-nowrap">
+                      <td className="px-4 py-4 text-gray-900  whitespace-nowrap">
                         {campaign.subject}
                       </td>
-                      <td className="px-4 py-4 text-sm text-gray-800  whitespace-nowrap">
+                      <td className="px-4 py-4 text-gray-900  whitespace-nowrap">
+                        {campaign.message}
+                      </td>
+                      <td className="px-4 py-4 text-gray-900  whitespace-nowrap">
                         {campaign.customerEmail}
                       </td>
-                      <td className="px-4 py-4 text-sm text-gray-800  whitespace-nowrap">
+                      <td className="px-4 py-4 text-gray-900  whitespace-nowrap">
                         <input
                           disabled={campaign.status === "active"}
                           type="checkbox"

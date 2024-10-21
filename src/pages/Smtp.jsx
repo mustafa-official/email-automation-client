@@ -2,6 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { ImSpinner9 } from "react-icons/im";
+import { MdOutlineModeEdit } from "react-icons/md";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import Swal from "sweetalert2";
 
 const Smtp = () => {
@@ -138,17 +141,31 @@ const Smtp = () => {
   if (isLoading)
     return (
       <div className="h-[80vh] flex justify-center items-center">
-        <span className="loading loading-spinner loading-md"></span>
+        <ImSpinner9
+          size={22}
+          color="[#1f1d1d]"
+          className="animate-spin m-auto"
+        />
       </div>
     );
   return (
-    <section className="mt-12">
-      <button
-        onClick={() => document.getElementById("modal-two").showModal()}
-        className="px-4 mx-8 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
-      >
-        Create SMTP
-      </button>
+    <section className="mt-12 min-h-[calc(100vh-114px)]">
+      <div className="flex items-center justify-between mx-8">
+        <h2 className="text-lg flex gap-2 flex-wrap items-center font-medium text-gray-800 ">
+          Total
+          <span className="px-3 py-1 text-xs text-white  bg-[#1f1d1d] rounded-full ">
+            {smtpEmail?.length} SMTP
+          </span>
+        </h2>
+        <div>
+          <button
+            onClick={() => document.getElementById("modal-two").showModal()}
+            className="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#1f1d1d] rounded-lg hover:bg-[#1f1d1d]"
+          >
+            Create SMTP
+          </button>
+        </div>
+      </div>
       <dialog id="modal-two" className="modal">
         <div className="modal-box max-w-sm">
           <form method="dialog">
@@ -202,12 +219,16 @@ const Smtp = () => {
               <button
                 disabled={loading}
                 type="submit"
-                className="px-2 disabled:cursor-not-allowed h-12 flex justify-center items-center mt-6 w-full font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-black rounded-lg hover:bg-neutral-900 focus:ring-opacity-80"
+                className="px-2  disabled:cursor-not-allowed h-11 flex justify-center items-center mt-6 w-full  tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#1f1d1d] rounded-lg hover:bg-neutral-900"
               >
                 {loading ? (
-                  <span className="loading loading-spinner text-white"></span>
+                  <ImSpinner9
+                    size={16}
+                    color="white"
+                    className="animate-spin m-auto"
+                  />
                 ) : (
-                  "Add Mail"
+                  "Add SMTP"
                 )}
               </button>
             </form>
@@ -221,12 +242,12 @@ const Smtp = () => {
         <div className="-my-2 overflow-x-auto ">
           <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
             <div className="overflow-hidden border border-gray-200  md:rounded-lg">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-[#4d7fecea]">
+              <table className="min-w-full divide-y divide-gray-500">
+                <thead className="bg-[#1f1d1d]  text-[15px]">
                   <tr>
                     <th
                       scope="col"
-                      className="py-3.5 px-4 text-sm font-bold text-left rtl:text-right text-white"
+                      className="py-3.5 px-4  text-left rtl:text-right text-white"
                     >
                       <div className="flex items-center gap-x-3">
                         <span>Host Name</span>
@@ -234,7 +255,7 @@ const Smtp = () => {
                     </th>
                     <th
                       scope="col"
-                      className="py-3.5 px-4 text-sm font-bold text-left rtl:text-right text-white"
+                      className="py-3.5 px-4  text-left rtl:text-right text-white"
                     >
                       <div className="flex items-center gap-x-3">
                         <span>Email</span>
@@ -242,65 +263,65 @@ const Smtp = () => {
                     </th>
                     <th
                       scope="col"
-                      className="px-4 py-3.5 text-sm font-bold text-left rtl:text-right text-white"
+                      className="px-4 py-3.5  text-left rtl:text-right text-white"
                     >
                       <span>Password</span>
                     </th>
                     <th
                       scope="col"
-                      className="px-4 py-3.5 text-sm font-bold text-left rtl:text-right text-white"
+                      className="px-4 py-3.5  text-left rtl:text-right text-white"
                     >
                       <span>Port</span>
                     </th>
                     <th
                       scope="col"
-                      className="px-4 py-3.5 text-sm font-bold text-left rtl:text-right text-white"
+                      className="px-4 py-3.5  text-left rtl:text-right text-white"
                     >
                       <span>Encryption</span>
                     </th>
 
                     <th
                       scope="col"
-                      className="px-4 py-3.5 text-sm font-bold text-left rtl:text-right text-white"
+                      className="px-4 py-3.5  text-left rtl:text-right text-white"
                     >
-                      <span>Update</span>
+                      <span>Modify</span>
                     </th>
                     <th
                       scope="col"
-                      className="px-4 py-3.5 text-sm font-bold text-left rtl:text-right text-white"
+                      className="px-4 py-3.5  text-left rtl:text-right text-white"
                     >
-                      <span>Delete</span>
+                      <span>Action</span>
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200 ">
+                <tbody className="bg-white divide-y divide-gray-500 ">
                   {smtpEmail?.map((data) => (
-                    <tr key={data?._id}>
-                      <td className="px-4 py-4 text-sm text-gray-800  whitespace-nowrap">
+                    <tr key={data?._id} className="text-[15px]">
+                      <td className="px-4 py-4  text-gray-900  whitespace-nowrap">
                         {data.hostname}
                       </td>
-                      <td className="px-4 py-4 text-sm text-gray-800  whitespace-nowrap">
+                      <td className="px-4 py-4  text-gray-900  whitespace-nowrap">
                         {data.email}
                       </td>
-                      <td className="px-4 py-4 text-sm text-gray-800  whitespace-nowrap">
+                      <td className="px-4 py-4  text-gray-900  whitespace-nowrap">
                         {data.password}
                       </td>
-                      <td className="px-4 py-4 text-sm text-gray-800  whitespace-nowrap">
+                      <td className="px-4 py-4  text-gray-900  whitespace-nowrap">
                         {data.port}
                       </td>
-                      <td className="px-4 py-4 text-sm text-gray-800  whitespace-nowrap">
+                      <td className="px-4 py-4  text-gray-900  whitespace-nowrap">
                         {data.encryption}
                       </td>
 
-                      <td className="px-4 py-4 text-sm text-gray-800  whitespace-nowrap">
+                      <td className="px-4 py-4  text-gray-900  whitespace-nowrap">
                         <button
                           onClick={() => {
                             document.getElementById("modal").showModal();
                             openUpdateModal(data._id);
                           }}
-                          className="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
+                          className="px-4 py-2 flex items-center gap-1 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-green-500 hover:bg-green-600 rounded-lg"
                         >
-                          Update
+                          Update <MdOutlineModeEdit size={13} />
                         </button>
                         <dialog id="modal" className="modal">
                           <div className="modal-box max-w-sm">
@@ -359,10 +380,14 @@ const Smtp = () => {
                                 <button
                                   disabled={loading}
                                   type="submit"
-                                  className="px-2 disabled:cursor-not-allowed h-12 flex justify-center items-center mt-6 w-full font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-black rounded-lg hover:bg-neutral-900 focus:ring-opacity-80"
+                                  className="px-2 disabled:cursor-not-allowed h-11 flex justify-center items-center mt-6 w-full font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#1f1d1d] rounded-lg hover:bg-neutral-900 focus:ring-opacity-80"
                                 >
                                   {loading ? (
-                                    <span className="loading loading-spinner text-white"></span>
+                                    <ImSpinner9
+                                      size={16}
+                                      color="white"
+                                      className="animate-spin m-auto"
+                                    />
                                   ) : (
                                     "Update Mail"
                                   )}
@@ -379,9 +404,9 @@ const Smtp = () => {
                       <td className="px-4 py-4 text-sm text-gray-800  whitespace-nowrap">
                         <button
                           onClick={() => handleDelete(data._id)}
-                          className="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-600 rounded-lg hover:bg-red-500 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-80"
+                          className="px-4 flex items-center gap-1 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-600 rounded-lg hover:bg-red-500 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-80"
                         >
-                          Delete
+                          Delete <RiDeleteBin6Line />
                         </button>
                       </td>
                     </tr>
