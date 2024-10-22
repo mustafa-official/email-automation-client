@@ -21,7 +21,7 @@ const Login = () => {
       await loginUser(email, password);
       toast.success("Login Successfully");
       form.reset();
-      navigate("/smtp");
+      navigate("/dashboard");
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -30,14 +30,14 @@ const Login = () => {
     }
   };
   return (
-    <section>
+    <section className="my-4 sm:my-0">
       <div className="flex justify-center items-center flex-col min-h-[calc(100vh-66px)]">
         <form
           className="lg:col-span-3 md:col-span-2 max-w-lg w-full px-6 mx-auto"
           onSubmit={handleLogin}
         >
-          <div className="mb-10">
-            <h3 className="text-gray-800 text-4xl font-extrabold">Login</h3>
+          <div className="mb-6 sm:mb-8">
+            <h3 className="text-gray-800 text-3xl sm:text-4xl font-extrabold">Login</h3>
           </div>
 
           <div className="relative flex items-center">

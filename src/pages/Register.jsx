@@ -10,6 +10,7 @@ const Register = () => {
   const navigate = useNavigate();
   const { registerUser, updateProfileInfo, setLoading, loading } =
     useContext(AuthContext);
+
   const handleRegister = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -18,11 +19,10 @@ const Register = () => {
     const password = form.password.value;
     try {
       setLoading(true);
-      const result = await registerUser(email, password);
-      console.log(result);
+      await registerUser(email, password);
       await updateProfileInfo(name, "empty");
-      navigate("/smtp");
       toast.success("Register Successfully");
+      navigate("/dashboard");
       form.reset();
       setLoading(false);
     } catch (error) {
@@ -33,14 +33,16 @@ const Register = () => {
   };
 
   return (
-    <section>
+    <section className="my-6 sm:my-0">
       <div className="flex justify-center items-center flex-col min-h-[calc(100vh-66px)]">
         <form
           className="lg:col-span-3 md:col-span-2 max-w-lg w-full px-6 mx-auto"
           onSubmit={handleRegister}
         >
-          <div className="mb-10">
-            <h3 className="text-gray-800 text-4xl font-extrabold">Register</h3>
+          <div className="mb-6 sm:mb-8">
+            <h3 className="text-gray-800 text-3xl sm:text-4xl font-extrabold">
+              Register
+            </h3>
           </div>
 
           <div className="relative flex items-center">

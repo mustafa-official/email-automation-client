@@ -2,15 +2,16 @@ import { PiTelegramLogo } from "react-icons/pi";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#1f1d1d] py-12 px-6 font-sans tracking-wide">
-      <h2 className="text-xl flex justify-center mb-8 text-[#e6e5e5] items-center font-bold">
-        <span className="font-medium text-[#e2e2e2] text-[19px]">pathao</span>MaiL
+    <footer className="bg-[#1f1d1d] py-10 px-6 font-sans tracking-wide">
+      <h2 className="text-xl flex justify-center mb-6 text-[#e6e5e5] items-center font-bold">
+        <span className="font-medium text-[#e2e2e2] text-[19px]">pathao</span>
+        MaiL
         <PiTelegramLogo className="rotate-[5deg] text-white" size={18} />
       </h2>
-      <div className="flex flex-col items-center gap-4">
-        <ul className="flex space-x-5">
+      <div className="flex flex-col items-center gap-3">
+        <ul className="flex space-x-6">
           <li>
-            <a href="javascript:void(0)">
+            <a href="#">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -26,7 +27,7 @@ const Footer = () => {
             </a>
           </li>
           <li>
-            <a href="javascript:void(0)">
+            <a href="#">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -42,7 +43,7 @@ const Footer = () => {
             </a>
           </li>
           <li>
-            <a href="javascript:void(0)">
+            <a href="#">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -54,7 +55,7 @@ const Footer = () => {
             </a>
           </li>
           <li>
-            <a href="javascript:void(0)">
+            <a href="#">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -67,32 +68,12 @@ const Footer = () => {
           </li>
         </ul>
 
-        <ul className="flex items-center flex-col sm:flex-row gap-x-7 gap-4">
-          <li>
-            <a
-              href="javascript:void(0)"
-              className="hover:underline text-gray-200 text-[15px] transition-all"
-            >
-              Terms of Service
-            </a>
-          </li>
-          <li>
-            <a
-              href="javascript:void(0)"
-              className="hover:underline text-gray-200 text-[15px] transition-all"
-            >
-              Privacy Policy
-            </a>
-          </li>
-          <li>
-            <a
-              href="javascript:void(0)"
-              className="hover:underline text-gray-200 text-[15px] transition-all"
-            >
-              Contact
-            </a>
-          </li>
-        </ul>
+        
+        <aside>
+          <p className="text-gray-100 text-center text-[13px] sm:text-[15px] font-light">
+            Copyright © {new Date().getFullYear()} - All right reserved by pathaoMaiL
+          </p>
+        </aside>
       </div>
     </footer>
   );

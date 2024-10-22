@@ -140,7 +140,7 @@ const Smtp = () => {
 
   if (isLoading)
     return (
-      <div className="h-[80vh] flex justify-center items-center">
+      <div className="min-h-[calc(100vh-66px)] flex justify-center items-center">
         <ImSpinner9
           size={22}
           color="[#1f1d1d]"
@@ -242,7 +242,7 @@ const Smtp = () => {
         <div className="-my-2 overflow-x-auto ">
           <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
             <div className="overflow-hidden border border-gray-200  md:rounded-lg">
-              <table className="min-w-full divide-y divide-gray-500">
+              <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-[#1f1d1d]  text-[15px]">
                   <tr>
                     <th
@@ -294,7 +294,7 @@ const Smtp = () => {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-500 ">
+                <tbody className="bg-white divide-y divide-gray-200 ">
                   {smtpEmail?.map((data) => (
                     <tr key={data?._id} className="text-[15px]">
                       <td className="px-4 py-4  text-gray-900  whitespace-nowrap">
@@ -304,7 +304,7 @@ const Smtp = () => {
                         {data.email}
                       </td>
                       <td className="px-4 py-4  text-gray-900  whitespace-nowrap">
-                        {data.password}
+                        ***********
                       </td>
                       <td className="px-4 py-4  text-gray-900  whitespace-nowrap">
                         {data.port}

@@ -29,16 +29,25 @@ const Customer = () => {
         const { data } = await axios.get(
           `${import.meta.env.VITE_API_URL}/replies/${customer.email}`
         );
-        return data; // Return the entire reply object, including null if no reply found
+        return data; // Return an array of replies
       },
       enabled: !!customers.length,
     })),
   });
 
-  // Extract replies from queries
+  // Extract and format replies from queries
   const replies = repliesQueries.reduce((acc, { data }, index) => {
     const email = customers[index]?.email;
-    acc[email] = data ?? { body: "No reply", receivedAt: null }; // Default to an object with a body and receivedAt
+
+    // If data exists, concatenate the body values into a single string
+    const concatenatedReplies =
+      data?.map((reply) => reply.body).join("<br />") || "No reply";
+
+    acc[email] = {
+      body: concatenatedReplies,
+      receivedAt: data?.[0]?.receivedAt || null, // Use the first reply's timestamp
+    };
+
     return acc;
   }, {});
 
@@ -71,7 +80,7 @@ const Customer = () => {
 
   if (isLoading)
     return (
-      <div className="h-[80vh] flex justify-center items-center">
+      <div className="min-h-[calc(100vh-66px)] flex justify-center items-center">
         <ImSpinner9
           size={22}
           color="[#1f1d1d]"
@@ -81,7 +90,7 @@ const Customer = () => {
     );
   return (
     <section className="mt-12 min-h-[calc(100vh-114px)]">
-      <div className="flex items-center justify-between mx-8">
+      <div className="flex items-center mx-8 flex-wrap gap-2  justify-between">
         <h2 className="text-lg flex gap-2 flex-wrap items-center font-medium text-gray-800 ">
           Total
           <span className="px-3 py-1 text-xs text-white  bg-[#1f1d1d] rounded-full ">
@@ -91,7 +100,7 @@ const Customer = () => {
         <div>
           <button
             onClick={() => document.getElementById("modal").showModal()}
-            className="px-4 mx-8 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#1f1d1d] rounded-lg hover:bg-[#1f1d1d]"
+            className="px-4  py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#1f1d1d] rounded-lg hover:bg-[#1f1d1d]"
           >
             Create Customer
           </button>
@@ -196,16 +205,18 @@ const Customer = () => {
                       <td className="px-4 py-4 text-gray-900  whitespace-nowrap">
                         {customer.email}
                       </td>
-                      <td className="px-4 py-4 text-gray-900 whitespace-nowrap">
-                        {replies[customer.email]?.body || "No reply"}{" "}
-                        {/* Show reply body */}
-                      </td>
+                      <td
+                        className="px-4 py-4 text-gray-900 whitespace-nowrap"
+                        dangerouslySetInnerHTML={{
+                          __html: replies[customer.email]?.body || "No reply",
+                        }}
+                      ></td>
                       <td className="px-4 py-4 text-gray-900 whitespace-nowrap">
                         {replies[customer.email]?.receivedAt
                           ? new Date(
                               replies[customer.email].receivedAt
                             ).toLocaleString()
-                          : "N/A"}{" "}
+                          : "N/A"}
                       </td>
                     </tr>
                   ))}

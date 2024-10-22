@@ -44,7 +44,7 @@ const Campaign = () => {
 
   if (isLoading)
     return (
-      <div className="h-[80vh] flex justify-center items-center">
+      <div className="min-h-[calc(100vh-66px)] flex justify-center items-center">
         <ImSpinner9
           size={22}
           color="[#1f1d1d]"
@@ -54,7 +54,7 @@ const Campaign = () => {
     );
   return (
     <section className="mt-12 min-h-[calc(100vh-114px)]">
-      <div className="flex items-center justify-between mx-8">
+      <div className="flex items-center justify-between mx-8 flex-wrap gap-2">
         <h2 className="text-lg flex gap-2 flex-wrap items-center font-medium text-gray-800 ">
           Total
           <span className="px-3 py-1 text-xs text-white  bg-[#1f1d1d] rounded-full ">
@@ -63,7 +63,7 @@ const Campaign = () => {
         </h2>
         <div>
           <Link to="/add-campaign">
-            <button className="px-4 mx-8 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#1f1d1d] rounded-lg hover:bg-[#1f1d1d]">
+            <button className="px-4  py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#1f1d1d] rounded-lg hover:bg-[#1f1d1d]">
               Add Campaign
             </button>
           </Link>

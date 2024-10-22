@@ -68,76 +68,78 @@ const AddCampaign = () => {
     }
   };
   return (
-    <section className="mx-8 min-h-[calc(100vh-66px)] flex justify-center items-center">
-      <form
-        onSubmit={handleAddCampaign}
-        className="flex flex-col justify-center items-center gap-3"
-      >
-        <input
-          required
-          name="fromName"
-          type="text"
-          placeholder="From Name"
-          className="input input-bordered w-full max-w-xs"
-        />
-        <input
-          required
-          name="subject"
-          type="text"
-          placeholder="Subject"
-          className="input input-bordered w-full max-w-xs"
-        />
-        <input
-          required
-          name="message"
-          type="text"
-          placeholder="Message"
-          className="input input-bordered w-full max-w-xs"
-        />
-        <select
-          required
-          onChange={handleSmtp}
-          className="select select-bordered w-full max-w-xs"
+    <section className="mx-8 my-6 sm:my-0">
+      <div className="sm:min-h-[calc(100vh-66px)] flex justify-center items-center">
+        <form
+          onSubmit={handleAddCampaign}
+          className="flex flex-col justify-center max-w-lg w-full  items-center gap-3"
         >
-          <option value="">SMTP</option>
-          {[...new Set(smtpEmails?.map((smtp) => smtp.email))].map(
-            (email, index) => (
-              <option key={index} value={email}>
-                {email}
-              </option>
-            )
-          )}
-        </select>
-        <select
-          required
-          onChange={handleCustomerEmail}
-          className="select select-bordered w-full max-w-xs"
-        >
-          <option value="">Customer Mail</option>
-          {[...new Set(customers?.map((customer) => customer.email))].map(
-            (email, index) => (
-              <option key={index} value={email}>
-                {email}
-              </option>
-            )
-          )}
-        </select>
-        <button
-          disabled={loading}
-          type="submit"
-          className="px-2 disabled:cursor-not-allowed max-w-xs h-11 flex justify-center items-center mt-1 w-full font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#1f1d1d] rounded-lg hover:bg-neutral-700 focus:ring-opacity-80"
-        >
-          {loading ? (
-            <ImSpinner9
-              size={16}
-              color="white"
-              className="animate-spin m-auto"
-            />
-          ) : (
-            "Add Campaign"
-          )}
-        </button>
-      </form>
+          <input
+            required
+            name="fromName"
+            type="text"
+            placeholder="From Name"
+            className="input input-bordered border-gray-400 w-full max-w-xs"
+          />
+          <input
+            required
+            name="subject"
+            type="text"
+            placeholder="Subject"
+            className="input input-bordered border-gray-400 w-full max-w-xs"
+          />
+          <input
+            required
+            name="message"
+            type="text"
+            placeholder="Message"
+            className="input input-bordered border-gray-400 w-full max-w-xs"
+          />
+          <select
+            required
+            onChange={handleSmtp}
+            className="select select-bordered border-gray-400 w-full max-w-xs"
+          >
+            <option value="">SMTP</option>
+            {[...new Set(smtpEmails?.map((smtp) => smtp.email))].map(
+              (email, index) => (
+                <option key={index} value={email}>
+                  {email}
+                </option>
+              )
+            )}
+          </select>
+          <select
+            required
+            onChange={handleCustomerEmail}
+            className="select select-bordered border-gray-400 w-full max-w-xs"
+          >
+            <option value="">Customer Mail</option>
+            {[...new Set(customers?.map((customer) => customer.email))].map(
+              (email, index) => (
+                <option key={index} value={email}>
+                  {email}
+                </option>
+              )
+            )}
+          </select>
+          <button
+            disabled={loading}
+            type="submit"
+            className="px-2 disabled:cursor-not-allowed max-w-xs h-11 flex justify-center items-center mt-1 w-full font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#1f1d1d] rounded-lg hover:bg-neutral-700 focus:ring-opacity-80"
+          >
+            {loading ? (
+              <ImSpinner9
+                size={16}
+                color="white"
+                className="animate-spin m-auto"
+              />
+            ) : (
+              "Add Campaign"
+            )}
+          </button>
+        </form>
+      </div>
     </section>
   );
 };

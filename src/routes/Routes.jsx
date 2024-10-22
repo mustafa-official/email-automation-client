@@ -21,6 +21,18 @@ const router = createBrowserRouter([
         element: <Login />,
       },
       {
+        path: "/dashboard",
+        element: (
+          <PrivateRoute>
+            <Statistics />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/register",
+        element: <Register />,
+      },
+      {
         path: "/smtp",
         element: (
           <PrivateRoute>
@@ -49,18 +61,6 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AddCampaign />
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "/register",
-        element: <Register />,
-      },
-      {
-        path: "/statistics",
-        element: (
-          <PrivateRoute>
-            <Statistics />
           </PrivateRoute>
         ),
       },

@@ -88,7 +88,7 @@ const NavBar = () => {
                   <button className="px-[16px] py-[8px] rounded-full  border w-max bg-[#1f1d1d] hover:bg-transparent text-white hover:border-[#1f1d1d] hover:text-[#1f1d1d] text-[16px] transform transition duration-200">
                     <h4 className="flex items-center font-medium gap-2">
                       <span>Register</span>
-                      <FiUserPlus size={18} />
+                      <FiUserPlus className="animate-pulse" size={18} />
                     </h4>
                   </button>
                 </h2>
@@ -98,19 +98,23 @@ const NavBar = () => {
               <>
                 <p className="text-neutral-900  duration-300 transform">
                   <NavLink
-                    to="/statistics"
+                    to="/dashboard"
                     className={({ isActive }) =>
-                      isActive ? "  font-extrabold text-black" : ""
+                      isActive
+                        ? "  font-extrabold text-black"
+                        : "hover:font-medium"
                     }
                   >
-                    Statistics
+                    Dashboard
                   </NavLink>
                 </p>
                 <p className="text-neutral-900  duration-300 transform">
                   <NavLink
                     to="/smtp"
                     className={({ isActive }) =>
-                      isActive ? "  font-extrabold text-black" : ""
+                      isActive
+                        ? "  font-extrabold text-black"
+                        : "hover:font-medium"
                     }
                   >
                     SMTP
@@ -120,7 +124,9 @@ const NavBar = () => {
                   <NavLink
                     to="/customer"
                     className={({ isActive }) =>
-                      isActive ? "  font-extrabold text-black" : ""
+                      isActive
+                        ? "  font-extrabold text-black"
+                        : "hover:font-medium"
                     }
                   >
                     Customers
@@ -130,7 +136,9 @@ const NavBar = () => {
                   <NavLink
                     to="/campaign"
                     className={({ isActive }) =>
-                      isActive ? "  font-extrabold text-black" : ""
+                      isActive
+                        ? "  font-extrabold text-black"
+                        : "hover:font-medium"
                     }
                   >
                     Campaign
