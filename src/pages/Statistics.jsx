@@ -39,7 +39,7 @@ const Statistics = () => {
           </div>
 
           <div className="mt-6 grid grid-cols-1 gap-4 sm:mt-8 sm:grid-cols-2 lg:grid-cols-3">
-            <div className="flex flex-col rounded-lg border border-gray-200 hover:border-[#302c2c65] px-4 py-8 text-center hover:-translate-y-2 transform transition duration-200">
+            <div className="flex flex-col rounded-lg border border-[#302c2c65]  hover:border-b-2 px-4 py-8 text-center hover:-translate-y-2 transform transition duration-200">
               <p className="order-last text-lg font-medium text-gray-500">
                 Total SMTP
               </p>
@@ -49,7 +49,7 @@ const Statistics = () => {
               </p>
             </div>
 
-            <div className="flex flex-col rounded-lg border border-gray-200 hover:border-[#302c2c65] px-4 py-8 text-center hover:-translate-y-2 transform transition duration-200">
+            <div className="flex flex-col rounded-lg border border-[#302c2c65] hover:border-b-2 px-4 py-8 text-center hover:-translate-y-2 transform transition duration-200">
               <p className="order-last text-lg font-medium text-gray-500">
                 Total Customer
               </p>
@@ -59,7 +59,7 @@ const Statistics = () => {
               </dd>
             </div>
 
-            <div className="flex flex-col rounded-lg border border-gray-200 hover:border-[#302c2c65] px-4 py-8 text-center hover:-translate-y-2 transform transition duration-200">
+            <div className="flex flex-col rounded-lg border border-[#302c2c65] hover:border-b-2 px-4 py-8 text-center hover:-translate-y-2 transform transition duration-200">
               <p className="order-last text-lg font-medium text-gray-500">
                 Total Campaign
               </p>

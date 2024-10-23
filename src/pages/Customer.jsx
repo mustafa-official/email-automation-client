@@ -6,6 +6,7 @@ import { ImSpinner9 } from "react-icons/im";
 
 const Customer = () => {
   const [loading, setLoading] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("");
 
   const {
     data: customers = [],
@@ -19,11 +20,12 @@ const Customer = () => {
       );
       return data;
     },
+    retry: false,
   });
 
   // Fetch replies for each customer in parallel
   const repliesQueries = useQueries({
-    queries: customers.map((customer) => ({
+    queries: customers?.map((customer) => ({
       queryKey: ["reply", customer.email],
       queryFn: async () => {
         const { data } = await axios.get(
@@ -51,6 +53,10 @@ const Customer = () => {
     return acc;
   }, {});
 
+  const handleSelectAllCustomer = (e) => {
+    setSelectedOption(e.target.value);
+  };
+
   const handleCreateCustomer = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -61,12 +67,13 @@ const Customer = () => {
       const { data } = await axios.post(
         `${import.meta.env.VITE_API_URL}/create-customer`,
         {
+          allCustomer: selectedOption,
           name,
           email,
         }
       );
-      if (data.insertedId) {
-        toast.success("Create Successfully");
+      if (data.modifiedCount > 0 || data.insertedId) {
+        toast.success("Customer created successfully");
         refetch();
         setLoading(false);
         document.getElementById("modal").close();
@@ -135,6 +142,14 @@ const Customer = () => {
                 placeholder="Email"
                 className="input input-bordered w-full"
               />
+              <select
+                required
+                onChange={handleSelectAllCustomer}
+                className="select select-bordered  w-full"
+              >
+                <option value="">Customer Mail</option>
+                <option value="allCustomer">All Customer</option>
+              </select>
               <button
                 disabled={loading}
                 type="submit"
@@ -198,7 +213,7 @@ const Customer = () => {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200 ">
                   {customers?.map((customer) => (
-                    <tr key={customer._id} className="text-[15px]">
+                    <tr key={customer.email} className="text-[15px]">
                       <td className="px-4 py-4 text-gray-900  whitespace-nowrap">
                         {customer.name}
                       </td>

@@ -30,7 +30,7 @@ const Login = () => {
     }
   };
   return (
-    <section className="my-4 sm:my-0">
+    <section>
       <div className="flex justify-center items-center flex-col min-h-[calc(100vh-66px)]">
         <form
           className="lg:col-span-3 md:col-span-2 max-w-lg w-full px-6 mx-auto"

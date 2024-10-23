@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const AddCampaign = () => {
   const [loading, setLoading] = useState(false);
   const [smtpEmail, setSmtpEmail] = useState("");
-  const [customerEmail, setCustomerEmail] = useState("");
+  const [allCustomerEmail, setAllCustomerEmail] = useState(null);
   const navigate = useNavigate();
 
   const { data: smtpEmails = [] } = useQuery({
@@ -34,9 +34,13 @@ const AddCampaign = () => {
   const handleSmtp = (e) => {
     setSmtpEmail(e.target.value);
   };
-  const handleCustomerEmail = (e) => {
-    setCustomerEmail(e.target.value);
+
+  const allSingleEmail = customers?.map((customer) => customer?.email);
+  const handleSelectAllCustomer = () => {
+    setAllCustomerEmail(allSingleEmail);
   };
+
+  console.log(allCustomerEmail);
   const handleAddCampaign = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -48,7 +52,7 @@ const AddCampaign = () => {
       subject,
       message,
       smtpEmail,
-      customerEmail,
+      allCustomerEmail,
       status: "inactive",
     };
     try {
@@ -68,8 +72,8 @@ const AddCampaign = () => {
     }
   };
   return (
-    <section className="mx-8 my-6 sm:my-0">
-      <div className="sm:min-h-[calc(100vh-66px)] flex justify-center items-center">
+    <section className="mx-8">
+      <div className="min-h-[calc(100vh-66px)] flex justify-center items-center">
         <form
           onSubmit={handleAddCampaign}
           className="flex flex-col justify-center max-w-lg w-full  items-center gap-3"
@@ -88,13 +92,14 @@ const AddCampaign = () => {
             placeholder="Subject"
             className="input input-bordered border-gray-400 w-full max-w-xs"
           />
-          <input
+
+          <textarea
             required
             name="message"
-            type="text"
+            rows="2"
             placeholder="Message"
-            className="input input-bordered border-gray-400 w-full max-w-xs"
-          />
+            className="textarea textarea-bordered border-gray-400  text-[16px] w-full max-w-xs"
+          ></textarea>
           <select
             required
             onChange={handleSmtp}
@@ -109,20 +114,16 @@ const AddCampaign = () => {
               )
             )}
           </select>
+
           <select
             required
-            onChange={handleCustomerEmail}
+            onChange={handleSelectAllCustomer}
             className="select select-bordered border-gray-400 w-full max-w-xs"
           >
             <option value="">Customer Mail</option>
-            {[...new Set(customers?.map((customer) => customer.email))].map(
-              (email, index) => (
-                <option key={index} value={email}>
-                  {email}
-                </option>
-              )
-            )}
+            <option value="allCustomer">All Customer</option>
           </select>
+
           <button
             disabled={loading}
             type="submit"

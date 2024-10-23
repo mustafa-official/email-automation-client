@@ -152,7 +152,7 @@ const NavBar = () => {
                   title={user?.displayName}
                   type="button"
                   id="dropdownToggle"
-                  className="px-[6px] min-w-44 py-[6px] hover:border hover:border-blue-300  flex justify-center items-center rounded-full text-[#333] text-sm border border-gray-300 outline-none bg-gray-100"
+                  className="px-[6px] min-w-44 py-[6px] hover:border hover:border-gray-500 flex justify-center items-center rounded-full text-[#333] text-sm border border-gray-300 outline-none bg-gray-100"
                   onClick={handleToggle}
                 >
                   <img
@@ -186,7 +186,7 @@ const NavBar = () => {
                   >
                     <li
                       title={user?.email}
-                      className="py-2.5  px-5 flex items-center hover:bg-gray-100 text-[#333] text-sm"
+                      className="py-2.5  px-5 flex items-center hover:bg-gray-100 text-black text-sm"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -206,7 +206,7 @@ const NavBar = () => {
 
                     <button
                       onClick={() => handleLogout()}
-                      className="py-2.5 px-5 flex group  items-center w-full hover:bg-gray-100 text-[#333] hover:text-red-500 text-sm cursor-pointer"
+                      className="py-2.5 px-5 flex group  items-center w-full hover:bg-red-100  font-medium text-red-500 text-sm cursor-pointer"
                     >
                       <span className="flex items-center">
                         <svg

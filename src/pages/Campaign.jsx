@@ -3,7 +3,9 @@ import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { ImSpinner9 } from "react-icons/im";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Campaign = () => {
   const [loadingMap, setLoadingMap] = useState({});
@@ -40,6 +42,36 @@ const Campaign = () => {
       toast.error("Failed to send email.");
       setLoadingMap((prev) => ({ ...prev, [id]: false }));
     }
+  };
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const { data } = await axios.delete(
+            `${import.meta.env.VITE_API_URL}/campaign-delete/${id}`
+          );
+          if (data.deletedCount === 1) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    });
   };
 
   if (isLoading)
@@ -109,13 +141,19 @@ const Campaign = () => {
                       scope="col"
                       className="px-4 py-3.5 text-left rtl:text-right text-white"
                     >
-                      <span>Customer Email</span>
+                      <span>Customer Emails</span>
                     </th>
                     <th
                       scope="col"
                       className="px-4 py-3.5 text-left rtl:text-right text-white"
                     >
                       <span>Status</span>
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-4 py-3.5 text-left rtl:text-right text-white"
+                    >
+                      <span>Action</span>
                     </th>
                   </tr>
                 </thead>
@@ -135,7 +173,12 @@ const Campaign = () => {
                         {campaign.message}
                       </td>
                       <td className="px-4 py-4 text-gray-900  whitespace-nowrap">
-                        {campaign.customerEmail}
+                        {(Array.isArray(campaign.allCustomerEmail)
+                          ? campaign.allCustomerEmail
+                          : campaign.allCustomerEmail?.split(",") || []
+                        ).map((email, index) => (
+                          <div key={index}>{email}</div>
+                        ))}
                       </td>
                       <td className="px-4 py-4 text-gray-900  whitespace-nowrap">
                         <input
@@ -150,6 +193,14 @@ const Campaign = () => {
                         {loadingMap[campaign._id] && (
                           <span className="ml-2 loading loading-dots loading-xs"></span>
                         )}
+                      </td>
+                      <td className="px-4 py-4 text-gray-900  whitespace-nowrap">
+                        <button
+                          onClick={() => handleDelete(campaign._id)}
+                          className="px-4 flex items-center gap-1 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-600 rounded-lg hover:bg-red-500 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-80"
+                        >
+                          Delete <RiDeleteBin6Line />
+                        </button>
                       </td>
                     </tr>
                   ))}

@@ -71,7 +71,7 @@ const Footer = () => {
         
         <aside>
           <p className="text-gray-100 text-center text-[13px] sm:text-[15px] font-light">
-            Copyright © {new Date().getFullYear()} - All right reserved by pathaoMaiL
+            Copyright © {new Date().getFullYear()} - All right reserved by Pathao Mail
           </p>
         </aside>
       </div>
