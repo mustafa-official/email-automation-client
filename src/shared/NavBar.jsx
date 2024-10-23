@@ -147,7 +147,7 @@ const NavBar = () => {
               </>
             )}
             {user && (
-              <div className="relative  w-max mx-auto">
+              <div className="relative w-max mx-auto">
                 <button
                   title={user?.displayName}
                   type="button"
@@ -161,8 +161,8 @@ const NavBar = () => {
                     alt="Profile"
                   />
                   <span className="hidden sm:flex">
-                    {user?.displayName.length > 12
-                      ? `${user?.displayName.slice(0, 12)}...`
+                    {user?.displayName?.length > 12
+                      ? `${user?.displayName?.slice(0, 12)}...`
                       : user?.displayName}
                   </span>
                   <svg

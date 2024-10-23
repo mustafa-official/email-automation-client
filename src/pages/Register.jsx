@@ -154,7 +154,7 @@ const Register = () => {
             <button
               disabled={loading}
               type="submit"
-              className="w-full disabled:cursor-not-allowed h-11 px-4 text-sm tracking-wider font-semibold rounded-md text-white bg-[#1f1d1d] hover:bg-neutral-700  focus:outline-none"
+              className="w-full disabled:cursor-not-allowed h-11 px-4 text-sm tracking-wider font-semibold rounded-md text-white bg-[#1f1d1d] hover:bg-black  focus:outline-none"
             >
               {loading ? (
                 <ImSpinner9

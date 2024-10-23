@@ -45,7 +45,7 @@ const Statistics = () => {
               </p>
 
               <p className="text-4xl font-extrabold text-bg-[#1f1d1d] md:text-5xl">
-                {statistics.smtp}
+                {statistics?.smtp}
               </p>
             </div>
 
@@ -55,7 +55,7 @@ const Statistics = () => {
               </p>
 
               <dd className="text-4xl font-extrabold text-bg-[#1f1d1d] md:text-5xl">
-                {statistics.customers}
+                {statistics?.customers}
               </dd>
             </div>
 
@@ -65,7 +65,7 @@ const Statistics = () => {
               </p>
 
               <p className="text-4xl font-extrabold text-bg-[#1f1d1d] md:text-5xl">
-                {statistics.campaign}
+                {statistics?.campaign}
               </p>
             </div>
           </div>

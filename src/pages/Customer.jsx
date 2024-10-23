@@ -3,6 +3,8 @@ import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { ImSpinner9 } from "react-icons/im";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import Swal from "sweetalert2";
 
 const Customer = () => {
   const [loading, setLoading] = useState(false);
@@ -22,7 +24,6 @@ const Customer = () => {
     },
     retry: false,
   });
-
   // Fetch replies for each customer in parallel
   const repliesQueries = useQueries({
     queries: customers?.map((customer) => ({
@@ -83,6 +84,38 @@ const Customer = () => {
       console.log(error);
       setLoading(false);
     }
+  };
+
+  const handleDelete = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete all",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const { data } = await axios.delete(
+            `${import.meta.env.VITE_API_URL}/customers-delete`
+          );
+
+          if (data.deletedCount === 1) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          }
+        } catch (error) {
+          console.log(error);
+          toast.error("Failed to Delete");
+        }
+      }
+    });
   };
 
   if (isLoading)
@@ -241,6 +274,17 @@ const Customer = () => {
           </div>
         </div>
       </div>
+      {customers?.length > 0 && (
+        <div className="mx-8 flex justify-end mt-5">
+          <button
+            onClick={() => handleDelete()}
+            className="px-4 flex  items-center gap-1 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-600 rounded-lg hover:bg-red-500 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-80"
+          >
+            Delete All
+            <RiDeleteBin6Line />
+          </button>
+        </div>
+      )}
     </section>
   );
 };
