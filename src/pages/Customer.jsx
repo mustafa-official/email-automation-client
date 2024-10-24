@@ -102,7 +102,7 @@ const Customer = () => {
             `${import.meta.env.VITE_API_URL}/customers-delete`
           );
 
-          if (data.deletedCount === 1) {
+          if (data?.deletedCount === 1) {
             refetch();
             Swal.fire({
               title: "Deleted!",
